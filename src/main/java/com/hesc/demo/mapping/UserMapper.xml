@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hesc.demo.dao.UserDao" >
+    <resultMap id="BaseResultMap" type="com.hesc.demo.pojo.User" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <id column="name" property="name" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="gender" property="gender" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, password, gender, age, tel, email, state, sort, create_time
+    </sql>
+
+    <insert id="insert" parameterType="com.hesc.demo.pojo.User" >
+        insert into user (id, name, password, 
+            gender, age, tel, 
+            email, state, sort, 
+            create_time)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+            #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
+            #{email,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, 
+            #{createTime,jdbcType=BIGINT})
+    </insert>
+
+    <delete id="deleteById" parameterType="com.hesc.demo.pojo.User" >
+        delete from user
+        where id = #{id,jdbcType=VARCHAR}
+          and name = #{name,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="delete" parameterType="com.hesc.demo.pojo.User" >
+        delete from user
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="password != null" >
+                 and password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="gender != null" >
+                 and gender = #{gender,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null" >
+                 and age = #{age,jdbcType=INTEGER}
+            </if>
+            <if test="tel != null" >
+                 and tel = #{tel,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null" >
+                 and email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update" parameterType="com.hesc.demo.pojo.User" >
+        update user
+        <set >
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null" >
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="tel != null" >
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+          and name = #{name,jdbcType=VARCHAR}
+    </update>
+	
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="com.hesc.demo.pojo.User" >
+        select 
+        <include refid="Base_Column_List" />
+        from user
+        where name = #{name,jdbcType=VARCHAR}
+    </select>
+	
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.hesc.demo.pojo.User" >
+        select 
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectCount" parameterType="com.hesc.demo.pojo.User" resultType="java.lang.Long" >
+        select count(*) from user
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="password != null" >
+                 and password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="gender != null" >
+                 and gender = #{gender,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null" >
+                 and age = #{age,jdbcType=INTEGER}
+            </if>
+            <if test="tel != null" >
+                 and tel = #{tel,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null" >
+                 and email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectList" parameterType="com.hesc.demo.pojo.User" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="password != null" >
+                 and password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="gender != null" >
+                 and gender = #{gender,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null" >
+                 and age = #{age,jdbcType=INTEGER}
+            </if>
+            <if test="tel != null" >
+                 and tel = #{tel,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null" >
+                 and email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+
+    <select id="selectPageList" parameterType="com.hesc.trundle.db.page.Page" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from user
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="params.password != null" >
+                 and password = #{params.password,jdbcType=VARCHAR}
+            </if>
+            <if test="params.gender != null" >
+                 and gender = #{params.gender,jdbcType=VARCHAR}
+            </if>
+            <if test="params.age != null" >
+                 and age = #{params.age,jdbcType=INTEGER}
+            </if>
+            <if test="params.tel != null" >
+                 and tel = #{params.tel,jdbcType=VARCHAR}
+            </if>
+            <if test="params.email != null" >
+                 and email = #{params.email,jdbcType=VARCHAR}
+            </if>
+            <if test="params.state != null" >
+                 and state = #{params.state,jdbcType=VARCHAR}
+            </if>
+            <if test="params.sort != null" >
+                 and sort = #{params.sort,jdbcType=VARCHAR}
+            </if>
+            <if test="params.createTime != null" >
+                 and create_time = #{params.createTime,jdbcType=BIGINT}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+
+</mapper>

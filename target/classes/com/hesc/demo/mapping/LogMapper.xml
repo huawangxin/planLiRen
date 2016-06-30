@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hesc.demo.dao.LogDao" >
+    <resultMap id="BaseResultMap" type="com.hesc.demo.pojo.Log" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+        <result column="operation" property="operation" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, create_time, operation, state, sort
+    </sql>
+
+    <insert id="insert" parameterType="com.hesc.demo.pojo.Log" >
+        insert into log (id, name, create_time, 
+            operation, state, sort
+            )
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+            #{operation,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from log
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="delete" parameterType="com.hesc.demo.pojo.Log" >
+        delete from log
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="name != null" >
+                 and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="operation != null" >
+                 and operation = #{operation,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update" parameterType="com.hesc.demo.pojo.Log" >
+        update log
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="operation != null" >
+                operation = #{operation,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="Base_Column_List" />
+        from log
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectCount" parameterType="com.hesc.demo.pojo.Log" resultType="java.lang.Long" >
+        select count(*) from log
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="name != null" >
+                 and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="operation != null" >
+                 and operation = #{operation,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectList" parameterType="com.hesc.demo.pojo.Log" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from log
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="name != null" >
+                 and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="operation != null" >
+                 and operation = #{operation,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+	
+	<select id="searchList" parameterType="com.hesc.demo.pojo.Log" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from log
+        where name like #{key,jdbcType=VARCHAR}
+        or operation like  #{key,jdbcType=VARCHAR}
+         order by sort asc, create_time desc
+    </select>
+	
+    <select id="selectPageList" parameterType="com.hesc.trundle.db.page.Page" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from log
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="params.name != null" >
+                 and name = #{params.name,jdbcType=VARCHAR}
+            </if>
+            <if test="params.createTime != null" >
+                 and create_time = #{params.createTime,jdbcType=BIGINT}
+            </if>
+            <if test="params.operation != null" >
+                 and operation = #{params.operation,jdbcType=VARCHAR}
+            </if>
+            <if test="params.state != null" >
+                 and state = #{params.state,jdbcType=VARCHAR}
+            </if>
+            <if test="params.sort != null" >
+                 and sort = #{params.sort,jdbcType=VARCHAR}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+
+</mapper>

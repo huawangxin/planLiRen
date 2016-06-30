@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hesc.demo.dao.AlbumDao" >
+    <resultMap id="BaseResultMap" type="com.hesc.demo.pojo.Album" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="picture_name" property="picture_name" jdbcType="VARCHAR" />
+        <result column="album_name" property="album_name" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="BIGINT" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="VARCHAR" />
+        <result column="album_id" property="album_id" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, picture_name, album_name, create_time, url, description, state, sort,album_id
+    </sql>
+
+    <insert id="insert" parameterType="com.hesc.demo.pojo.Album" >
+        insert into album (id, name, picture_name, 
+            album_name, create_time, url, 
+            description, state, sort,album_id
+            )
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{picture_name,jdbcType=VARCHAR}, 
+            #{album_name,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, 
+            #{description,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}
+            , #{album_id,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <delete id="deleteById" parameterType="com.hesc.demo.pojo.Album" >
+        delete from album
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <delete id="delete" parameterType="com.hesc.demo.pojo.Album" >
+        delete from album
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="picture_name != null" >
+                 and picture_name = #{picture_name,jdbcType=VARCHAR}
+            </if>
+            <if test="album_name != null" >
+                 and album_name = #{album_name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="url != null" >
+                 and url = #{url,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null" >
+                 and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="album_id != null" >
+                 and album_id = #{album_id,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </delete>
+
+    <update id="update" parameterType="com.hesc.demo.pojo.Album" >
+        update album
+        <set >
+            <if test="picture_name != null" >
+                picture_name = #{picture_name,jdbcType=VARCHAR},
+            </if>
+            <if test="album_name != null" >
+                album_name = #{album_name,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=BIGINT},
+            </if>
+            <if test="url != null" >
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null" >
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                sort = #{sort,jdbcType=VARCHAR},
+            </if>
+            <if test="album_id != null" >
+                 album_id = #{album_id,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+          and name = #{name,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.hesc.demo.pojo.Album" >
+        select 
+        <include refid="Base_Column_List" />
+        from album
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+	
+	<select id="selectByAlbum_id" resultMap="BaseResultMap" parameterType="com.hesc.demo.pojo.Album" >
+        select 
+        <include refid="Base_Column_List" />
+        from album
+        where album_id = #{album_id,jdbcType=VARCHAR}
+    </select>
+	
+    <select id="selectCount" parameterType="com.hesc.demo.pojo.Album" resultType="java.lang.Long" >
+        select count(*) from album
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="picture_name != null" >
+                 and picture_name = #{picture_name,jdbcType=VARCHAR}
+            </if>
+            <if test="album_name != null" >
+                 and album_name = #{album_name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="url != null" >
+                 and url = #{url,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null" >
+                 and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="album_id != null" >
+                 and album_id = #{album_id,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </select>
+
+    <select id="selectList" parameterType="com.hesc.demo.pojo.Album" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from album
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="picture_name != null" >
+                 and picture_name = #{picture_name,jdbcType=VARCHAR}
+            </if>
+            <if test="album_name != null" >
+                 and album_name = #{album_name,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null" >
+                 and create_time = #{createTime,jdbcType=BIGINT}
+            </if>
+            <if test="url != null" >
+                 and url = #{url,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null" >
+                 and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null" >
+                 and state = #{state,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null" >
+                 and sort = #{sort,jdbcType=VARCHAR}
+            </if>
+            <if test="album_id != null" >
+                 and album_id = #{album_id,jdbcType=VARCHAR}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+
+    <select id="selectPageList" parameterType="com.hesc.trundle.db.page.Page" resultMap="BaseResultMap" >
+        select
+        <include refid="Base_Column_List" />
+        from album
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="params.picture_name != null" >
+                 and picture_name = #{params.picture_name,jdbcType=VARCHAR}
+            </if>
+            <if test="params.album_name != null" >
+                 and album_name = #{params.album_name,jdbcType=VARCHAR}
+            </if>
+            <if test="params.createTime != null" >
+                 and create_time = #{params.createTime,jdbcType=BIGINT}
+            </if>
+            <if test="params.url != null" >
+                 and url = #{params.url,jdbcType=VARCHAR}
+            </if>
+            <if test="params.description != null" >
+                 and description = #{params.description,jdbcType=VARCHAR}
+            </if>
+            <if test="params.state != null" >
+                 and state = #{params.state,jdbcType=VARCHAR}
+            </if>
+            <if test="params.sort != null" >
+                 and sort = #{params.sort,jdbcType=VARCHAR}
+            </if>
+            <if test="album_id != null" >
+                 and album_id = #{album_id,jdbcType=VARCHAR}
+            </if>
+        </trim>
+         order by sort asc, create_time desc
+    </select>
+
+</mapper>
