@@ -2,6 +2,12 @@ package com.demo.test;
 
 import java.util.Arrays;
 
+/**
+ * ¼òÒ× Õ»¹¦ÄÜ
+ * 
+ * @author huawangxin
+ *
+ */
 public class Stack {
 
 	private Object[] data;

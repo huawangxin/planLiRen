@@ -23,6 +23,25 @@ public class MainString {
 		char[] ary=stringBuilder.toString().toCharArray();
 		Arrays.sort(ary);
 		System.out.println(ary);
+		//
+		System.out.println(reverseSting("你好中国，boy!"));
 	}
 
+	/**
+	 * 反转字符串函数
+	 * @param str
+	 * @return
+	 */
+	public static String reverseSting(String str){
+		//1
+		char[] chars=str.toCharArray();
+		StringBuilder sb=new StringBuilder();
+		for(int i=chars.length-1;i>=0;i--){
+			sb.append(chars[i]);
+		}
+//		2
+//		sb=new StringBuilder(str);
+//		sb.reverse().toString();
+		return sb.toString();
+	}
 }
