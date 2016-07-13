@@ -44,4 +44,38 @@ public class MainString {
 //		sb.reverse().toString();
 		return sb.toString();
 	}
+	
+	/**
+	 * 写一个函数，2个参数，1个字符串，1个字节数，返回截取的字符串(从头开始截取)，要求中文不能出现乱码
+	 * 
+	 * @return 
+	 * 
+	 */
+	public static String subString(String str,int subBytes){
+		int bytes=0;
+		for(int i=0;i<str.length();i++){
+			if(bytes==subBytes){
+				return str.substring(0, 1);
+			}
+			char c=str.charAt(i);
+			if(c<256){
+				bytes+=1;
+			}else {
+				//中文字符大于256
+				bytes+=2;
+				if(bytes-subBytes==1){
+					return str.substring(0,i);
+				}
+			}
+		}
+		return str;
+	}
+	/**
+	 * 去掉字符串中所有的 数字
+	 * @param str
+	 * @return
+	 */
+	public String deleteDigital (String str){
+		return str.replaceAll("\\d+", "");
+	}
 }
