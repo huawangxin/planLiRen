@@ -78,4 +78,25 @@ public class MainString {
 	public String deleteDigital (String str){
 		return str.replaceAll("\\d+", "");
 	}
+	/**
+	 * 在字符串中插入指定字符
+	 * @param str
+	 * @param n
+	 * @return
+	 */
+	public String appendString(String str,int d,String n){
+		StringBuilder sb=new StringBuilder(str);
+		return sb.insert(d, n).toString();
+	}
+	/**
+	 * 拼接字符串
+	 * @param str
+	 * @param n
+	 * @return
+	 */
+	public String append(String str,String n){
+		StringBuilder sb=new StringBuilder(str);
+		sb.append(n);
+		return sb.toString();
+	}
 }
